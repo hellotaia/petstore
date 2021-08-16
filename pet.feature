@@ -26,7 +26,7 @@ Scenario: Creating a pet
 
 @api @positive
     Scenario: Pet Id is automatically generated for pet
-    Given the Pet store API is available
+    Given a User is using uri /pet 
     When a User add a pet to the system without providing an id value
     Then an id is automatically generated for the added pet
 
@@ -50,16 +50,22 @@ Scenario: Updating existing pet in the pet store
  | tags.id[0].name | warm kitty |
  | status          | sold       |
 
+#Multiply status? 
  Scenario: Find a pet by pet status
     Given a User is using uri /pet/findByStatus
-
-    When a user executes a pet find GET Call using
-    | Key | Value |
-    |
-    And 
+    When a User executes a pet find GET Call using
+    | key       | value |
+    | available |
+    | sold      |
+    | pending   |
     And Multiple status values can be provided with comma separated strings  
-    Then 
+    Then the status code is 200
     And items that match the search criteria in response
-   # then response body includes available
-   # and does not include sold, pending status
+
+Scenario: Deleting existing pet in the pet store
+    Given a User is using uri /pet/{pet_id}
+    And {pet_id} is the stored variable id
+    When a User executes a pet find DELETE Call
+    And then search for the pet by it's id using uri /pet/{pet_id}
+    Then the requests response will contain the value 'Pet not found' in the 'message' field
     
