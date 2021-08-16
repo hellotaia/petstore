@@ -1,0 +1,87 @@
+{
+	"house": {
+		"rooms": [{
+				"type": "Kitchen",
+				"owner": "Unknown",
+				"furniture": {
+					"cooker": {
+						"quantity": "1"
+					},
+					"table": {
+						"quantity": "1",
+						"type": "DinningTable",
+						"size": "Big",
+						"shape": "round"
+					},
+					"chair": {
+						"quantity": "4"
+					}
+				}
+			},
+			{
+				"type": "Livingroom",
+				"owner": "Unknown",
+				"furniture": {
+					"sofa": {
+						"quantity": "1",
+						"size": "big"
+					},
+					"table": {
+						"quantity": "1",
+						"type": "CoffeeTable"
+					},
+					"armchair": {
+						"quantity": "2"
+					}
+				}
+			},
+			{
+				"type": "Bedroom",
+				"owner": ["John", "Jane"],
+				"furniture": {
+					"wardrobe": {
+						"quantity": "1"
+					},
+					"bed": {
+						"quantity": "1",
+						"type": "DoubleBed"
+					},
+					"tv_set": {
+						"quantity": "1"
+					}
+				}
+			},
+			{
+				"type": "Bedroom",
+				"owner": "Will",
+				"furniture": {
+					"wardrobe": {
+						"quantity": "1"
+					},
+					"bed": {
+						"quantity": "1",
+						"type": "SingleBed"
+					},
+					"table": {
+						"quantity": "1",
+						"type": "Desk"
+					}
+				}
+			},
+			{
+				"type": "Bedroom",
+				"owner": "Caroline",
+				"furniture": {
+					"wardrobe": {
+						"quantity": "1"
+					},
+					"bed": {
+						"quantity": "1",
+						"type": "SingleBed"
+					},
+					"shelf": ["Toys"]
+				}
+			}
+		]
+	}
+}
