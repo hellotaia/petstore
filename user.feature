@@ -10,7 +10,7 @@ Scenario: Creating a user with given input array
     | [0].username   | hello_user    |
     | [0].firstName  | John          |
     | [0].lastName   | Snow          |
-    | [0]email       | john@user.com |
+    | [0].email      | john@user.com |
     | [0].password   | qwerty        |
     | [0].phone      | 123456789     |
     | [0].userStatus | 0             |
@@ -18,22 +18,20 @@ Scenario: Creating a user with given input array
     | [1].username   | hello_user2   |
     | [1].firstName  | Liza          |
     | [1].lastName   | Star          |
-    | [1]email       | liza@user.com |
+    | [1].email      | liza@user.com |
     | [1].password   | qwerty        |
     | [1].phone      | 987654321     |
     | [1].userStatus | 0             |
-    Then the status code is 200
+    Then the status code is 201
     And the following fields and values are in the response
     | key     | value |
     | code    | 200   |
     | message | ok    |
 
 Scenario: Creating a user 
-#This can only be done by the logged in user?
     Given a User is using uri /user
     When a User executes a POST call using
     | key        | value         |
-    | id         | 228           |
     | username   | hello_user    |
     | firstName  | John          |
     | lastName   | Snow          |
@@ -41,7 +39,7 @@ Scenario: Creating a user
     | password   | qwerty        |
     | phone      | 123456789     |
     | userStatus | 0             |
-    Then the status code is 200
+    Then the status code is 201
     And the id field in the response is stored as {userId1}
     And the following fields and values are in the response
     | key     | value     |
@@ -62,7 +60,7 @@ Scenario: Find a user by user name
     | password   | qwerty        |
     | phone      | 123456789     |
     | userStatus | 0             |
-    Then the status code is 200
+    Then the status code is 201
     Given a User is using uri /user/{username}
     And a User sets query parameter username with value hello_user
     When a User executes a GET Call
@@ -85,7 +83,7 @@ Scenario: Updating existing user
     | password   | qwerty        |
     | phone      | 123456789     |
     | userStatus | 0             |
-    Then the status code is 200
+    Then the status code is 201
     Given a User is using uri /user/{username}
     And a User sets query parameter username with value hello_user
     When a User executes a user PUT call using
@@ -117,9 +115,9 @@ Scenario: Deleting existing user
     | password   | qwerty        |
     | phone      | 123456789     |
     | userStatus | 0             |
-    Then the status code is 200
+    Then the status code is 201
     Given a User is using uri /user/{username}
-    And {username} has the value hello_user 
+    And a User sets query parameter username with value hello_user 
     When a User executes a DELETE Call
     Then the status code is 204
 
@@ -169,15 +167,15 @@ Scenario: Logs user into the system without valid credentials
     And the username field in the response is stored as {username1}
     Given a User is using uri /user/login
     And a User sets the following query parameters
-    | key      | value       |
-    | username | {username1} |
-    | Password | 321000      |
+    | key      | value        |
+    | username | {username1}  |
+    | Password | RandomInt(5) |
     Then status code is 400
     And a message contains "Invalid username/password supplied" in response
     
 
 @positive
-Scenario:
+Scenario: Logs out user from the system
     Given a User is using uri /user
     When a User executes a POST call using
     | key        | value         |
